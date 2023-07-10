@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\Collections\ProductResourceCollection;
 use App\Repositories\ProductRepositoryContract;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ProductController extends Controller
 {
@@ -23,8 +24,6 @@ class ProductController extends Controller
     {
         $products = $this->productRepository->getAllPaginated((int) $request->query('limit', 20));
 
-        return $this->successResponse(
-            new ProductResourceCollection($products),
-        );
+        return Inertia::render('products/Index');
     }
 }
