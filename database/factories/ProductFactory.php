@@ -24,7 +24,8 @@ class ProductFactory extends Factory
         return [
             'sku' => $this->faker->uuid,
             'name' => $this->faker->name,
-            'price' => $this->faker->numberBetween(10, 100)
+            'price' => $this->faker->numberBetween(10, 100),
+            'image' => $this->faker->imageUrl(640, 480)
         ];
     }
 }

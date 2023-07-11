@@ -4,16 +4,15 @@ namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 interface EloquentRepositoryContract
 {
     /**
      * Return all paginateds
-     * @param int $limit
-     * @return LengthAwarePaginator
+     * @return Collection
      */
-    public function getAllPaginated(int $limit): LengthAwarePaginator;
+    public function getAll(): Collection;
 
     /**
      * Find data by primary key or fail

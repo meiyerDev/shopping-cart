@@ -6,7 +6,7 @@ use App\Models\Order;
 use App\Models\PlacetoPay;
 use App\Repositories\PlacetoPayRepositoryContract;
 use Carbon\Carbon;
-use Dnetix\Redirection;
+use Dnetix\Redirection\PlacetoPay as RedirectionPlacetoPay;
 use Dnetix\Redirection\Entities\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,10 +16,7 @@ class PlacetoPayRepository extends EloquentRepository implements PlacetoPayRepos
     /** @var Request */
     private $request;
 
-    /** @var Redirection\PlacetoPay */
-    private $placetoPayRedirection;
-
-    function __construct(PlacetoPay $placetoPayModel, Redirection\PlacetoPay $placetoPayRedirection)
+    function __construct(private PlacetoPay $placetoPayModel, private RedirectionPlacetoPay $placetoPayRedirection)
     {
         $this->request = request();
         $this->placetoPayRedirection = $placetoPayRedirection;

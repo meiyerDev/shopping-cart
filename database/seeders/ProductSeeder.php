@@ -14,8 +14,6 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        Product::factory()->create([
-            'name' => 'Billetera'
-        ]);
+        Product::factory()->count(4)->create();
     }
 }

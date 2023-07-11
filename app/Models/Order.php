@@ -50,7 +50,7 @@ class Order extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class)
-            ->withTimestamps();;
+            ->withTimestamps();
     }
 
     public function placetoPays()

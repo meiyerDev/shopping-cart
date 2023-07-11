@@ -4,7 +4,7 @@ namespace App\Repositories\Eloquent;
 
 use App\Repositories\EloquentRepositoryContract;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 abstract class EloquentRepository implements EloquentRepositoryContract
 {
@@ -19,11 +19,11 @@ abstract class EloquentRepository implements EloquentRepositoryContract
     /**
      * Return all paginateds
      * @param int $limit
-     * @return LengthAwarePaginator
+     * @return Collection
      */
-    public function getAllPaginated(int $limit): LengthAwarePaginator
+    public function getAll(): Collection
     {
-        return $this->model->latest()->paginate($limit);
+        return $this->model->latest()->get();
     }
 
     /**
