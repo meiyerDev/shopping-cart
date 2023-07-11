@@ -6,6 +6,8 @@
         "build": "vite build"
     },
     "devDependencies": {
+        "@headlessui/vue": "^1.7.14",
+        "@heroicons/vue": "^2.0.18",
         "@vitejs/plugin-vue": "^4.2.3",
         "autoprefixer": "^10.4.14",
         "axios": "^1.1.2",
