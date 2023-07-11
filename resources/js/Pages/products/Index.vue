@@ -8,11 +8,11 @@ defineProps({
 </script>
 
 <template>
-    <div class="bg-white w-screen">
+    <div class="bg-white">
         <div class="grid grid-cols-4">
             <div class="mx-auto col-span-3 px-4 py-4 sm:px-6 sm:py-10 lg:px-8">
                 <h2 class="text-3xl font-bold tracking-tight text-gray-900">Mi primera tienda</h2>
-                <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 xl:gap-x-8">
+                <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:gap-x-8">
                     <div v-for="product in products" :key="product.sku" class="relative">
                         <div
                             class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none peer-hover:opacity-75 lg:h-80">
@@ -37,7 +37,7 @@ defineProps({
                 </div>
             </div>
             <!-- TODO: Remover background y agregar componente de carrito -->
-            <div class="bg-slate-300 w-full px-4 py-4 sm:px-6 sm:py-10 lg:px-8">
+            <div class="bg-slate-300 w-full px-4 py-4 sm:px-6 sm:py-10 lg:px-8 h-screen">
                 <h2 class="text-xl font-bold tracking-tight text-gray-900">Mi carrito</h2>
             </div>
         </div>
