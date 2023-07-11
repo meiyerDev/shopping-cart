@@ -39,7 +39,7 @@ const totalAmount = computed(() => {
                                     <div>
                                         <div class="flex justify-between text-base font-medium text-gray-900">
                                             <h3>{{ product.name }}</h3>
-                                            <p class="ml-4">{{ product.price * product.quantity }}</p>
+                                            <p class="ml-4">${{ product.price * product.quantity }}</p>
                                         </div>
                                     </div>
                                     <div class="flex flex-1 items-end justify-between text-sm">
