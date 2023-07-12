@@ -22,7 +22,7 @@ class ProductController extends Controller
     {
         $products = $this->productRepository->getAll();
 
-        return Inertia::render('products/Index', [
+        return Inertia::render('Products/Index', [
             'products' => $products->map(fn ($product) => [
                 'id' => $product->id,
                 'sku' => $product->sku,

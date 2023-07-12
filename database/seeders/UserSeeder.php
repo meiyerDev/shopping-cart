@@ -14,9 +14,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->create([
-            'email' => 'admin@shopmanager.com',
-            'is_admin' => true
-        ]);
+        // User::factory()->create([
+        //     'email' => 'admin@shopping-cart.test',
+        // ]);
     }
 }

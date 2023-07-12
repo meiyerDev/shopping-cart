@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Repositories\OrderRepositoryContract;
 use App\Repositories\PlacetoPayRepositoryContract;
-use Illuminate\Http\Response;
-use Dnetix\Redirection;
 use Illuminate\Support\Facades\Auth;
 
 class OrderPlacetoPayController extends Controller
@@ -26,24 +24,6 @@ class OrderPlacetoPayController extends Controller
     }
 
     /**
-     * Create payment request by Order id
-     */
-    public function createPaymentRequest(
-        int $orderId
-    ) {
-        $order = $this->orderRepository->findOrFail($orderId);
-        $this->authorize('view', $order);
-
-        $data = $this->placetoPayRepository->createRequestPaymentByOrder($order);
-
-        if (isset($data['process_url'])) {
-            return $this->successResponse($data, Response::HTTP_CREATED);
-        }
-
-        return $this->errorResponse($data, Response::HTTP_SERVICE_UNAVAILABLE);
-    }
-
-    /**
      * Receive user from placetoPay flow successfull
      */
     public function receivedSuccessful(
@@ -52,9 +32,6 @@ class OrderPlacetoPayController extends Controller
     ) {
         /** @var Order */
         $order = $this->orderRepository->findOrFail($orderId);
-
-        Auth::login($order->user);
-        $this->authorize('view', $order);
 
         $route = $this->placetoPayRepository->updateOrderByPlacetoPay($order, $referenceId);
 
@@ -71,28 +48,8 @@ class OrderPlacetoPayController extends Controller
         /** @var Order */
         $order = $this->orderRepository->findOrFail($orderId);
 
-        Auth::login($order->user);
-        $this->authorize('view', $order);
-
         $route = $this->placetoPayRepository->cancelOrderByPlacetoPay($order, $referenceId);
 
         return redirect()->to($route);
-    }
-
-    /**
-     * get placetopay request
-     */
-    public function getPaymentRequest(
-        int $orderId
-    ) {
-        /** @var Order */
-        $order = $this->orderRepository->findOrFail($orderId);
-        $this->authorize('view', $order);
-
-        $placetoPay = $this->orderRepository->getLatestPlacetoPay($order);
-
-        return $this->successResponse([
-            'process_url' => $placetoPay->process_url
-        ], Response::HTTP_CREATED);
     }
 }

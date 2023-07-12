@@ -20,12 +20,8 @@ class Order extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id',
         'status',
         'code',
-        'customer_name',
-        'customer_email',
-        'customer_mobile'
     ];
 
     /**
@@ -42,11 +38,6 @@ class Order extends Model
         });
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
     public function products()
     {
         return $this->belongsToMany(Product::class)
@@ -56,12 +47,6 @@ class Order extends Model
     public function placetoPays()
     {
         return $this->hasMany(PlacetoPay::class);
-    }
-
-    # Scopes
-    public function scopeOnlyUser($query, int $userId)
-    {
-        return $query->where('user_id', $userId);
     }
 
     # Assesors

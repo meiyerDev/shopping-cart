@@ -58,15 +58,8 @@ class PlacetoPayRepository extends EloquentRepository implements PlacetoPayRepos
                 'allowPartial' => false,
             ];
 
-            $placetoPayModel->data_buyer = [
-                'name' => $order->customer_name,
-                'email' => $order->customer_email,
-                'mobile' => $order->customer_mobile
-            ];
-
             $response = $this->placetoPayRedirection->request([
                 'payment' => $placetoPayModel->data_payment,
-                'buyer' => $placetoPayModel->data_buyer,
                 'expiration' => $placetoPayModel->expiration,
                 'returnUrl' => $placetoPayModel->return_url,
                 'cancelUrl' => $placetoPayModel->cancel_url,

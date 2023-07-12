@@ -23,10 +23,6 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            'customer_name' => $this->faker->name,
-            'customer_email' => $this->faker->email(),
-            'customer_mobile' => $this->faker->phoneNumber(),
-            'user_id' => User::factory()
         ];
     }
 }

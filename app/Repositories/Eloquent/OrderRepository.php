@@ -15,17 +15,6 @@ class OrderRepository extends EloquentRepository implements OrderRepositoryContr
     }
 
     /**
-     * Return all paginateds
-     * @param int $userId
-     * @param int $limit
-     * @return LengthAwarePaginator
-     */
-    public function getOnlyUserPaginated(int $userId, int $limit): LengthAwarePaginator
-    {
-        return $this->model->onlyUser($userId)->latest()->paginate($limit);
-    }
-
-    /**
      * Find order by primary key or fail
      * 
      * @param int $primary
@@ -39,21 +28,20 @@ class OrderRepository extends EloquentRepository implements OrderRepositoryContr
 
     /**
      * Create a new order
-     * 
-     * @param array $data
-     * @param int $userId 
      */
-    public function create(array $data, int $userId)
+    public function create(array $products)
     {
-        $product = Product::findOrFail($data['product_id']);
-
-        unset($data['product_id']);
-        $data = $data + ['user_id' => $userId];
-
         /** @var Order */
-        $order = Order::create($data);
+        $order = Order::create();
 
-        $order->products()->attach($product->id);
+        $order->products()->attach(
+            collect($products)->mapWithKeys(fn ($product) => [
+                    $product['id'] => [
+                        'quantity' => $product['quantity']
+                    ]
+                ]
+            )
+        );
 
         return $order->load('products');
     }

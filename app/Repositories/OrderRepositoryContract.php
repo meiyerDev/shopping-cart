@@ -13,15 +13,7 @@ interface OrderRepositoryContract extends EloquentRepositoryContract
      * @param array $data
      * @param int $userId 
      */
-    public function create(array $data, int $userId);
-
-    /**
-     * Return all paginateds
-     * @param int $userId
-     * @param int $limit
-     * @return LengthAwarePaginator
-     */
-    public function getOnlyUserPaginated(int $userId, int $limit): LengthAwarePaginator;
+    public function create(array $productIds);
 
     /**
      * Get latest placeto pay by Order

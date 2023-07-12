@@ -20,7 +20,6 @@ class CreatePlacetoPaysTable extends Migration
             $table->string('request_id')->unique();
             $table->string('reference');
             $table->longText('data_payment');
-            $table->longText('data_buyer');
             $table->dateTime('expiration');
             $table->string('return_url');
             $table->string('cancel_url');

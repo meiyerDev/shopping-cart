@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [ProductController::class, 'index']);
+
+Route::get('/orders/{orderId}/placeto-pay/successful', [OrderController::class, 'show'])->name('web.placeto-pay.successful');
+Route::get('/orders/{orderId}/placeto-pay/canceled', [OrderController::class, 'show'])->name('web.placeto-pay.canceled');
+Route::get('/orders/{orderId}/placeto-pay/pending', [OrderController::class, 'show'])->name('web.placeto-pay.retry');

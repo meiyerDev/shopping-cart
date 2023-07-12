@@ -1,8 +1,9 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
+import { router } from '@inertiajs/vue3'
 import Button from './Button.vue';
-const emits = defineEmits(['more', 'less'])
 
+const emits = defineEmits(['less'])
 const props = defineProps({
     cart: {
         type: Array,
@@ -10,11 +11,45 @@ const props = defineProps({
     }
 })
 
+const isLoading = ref(false)
+
 const totalAmount = computed(() => {
     return props.cart.reduce((acc, product) => {
         return acc + (product.price * product.quantity)
     }, 0)
 })
+
+const generatePayment = () => {
+    isLoading.value = true
+
+    const products = props.cart.map((product) => {
+        return {
+            id: product.id,
+            quantity: product.quantity
+        }
+    })
+
+    fetch('/api/pay', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            products
+        })
+    }).then((response) => {
+        if (!response.ok) {
+            throw new Error('No se pudo crear la solicitud de pago, por favor espere y vuelva a intentarlo.');
+        }
+        return response.json();
+    }).then((response) => {
+        window.location.href = response.process_url
+    }).catch((error) => {
+        alert(error.message)
+    }).finally(() => {
+        isLoading.value = false
+    })
+}
 </script>
 
 <template>
@@ -69,7 +104,7 @@ const totalAmount = computed(() => {
                 <p class="mt-0.5 text-sm text-gray-500">Compra con PlacetoPay.
                 </p>
                 <div class="mt-6">
-                    <Button :disabled="cart.length === 0" type="button"
+                    <Button @click="generatePayment" :disabled="cart.length === 0 || isLoading" type="button"
                         class="bg-orange-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-orange-500 active:bg-orange-600">
                         Ir a Pagar
                     </Button>

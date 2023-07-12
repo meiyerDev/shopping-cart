@@ -15,12 +15,8 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
             $table->enum('status', ['CREATED', 'PAYED', 'REJECTED'])->default('CREATED');
             $table->string('code');
-            $table->string('customer_name');
-            $table->string('customer_email');
-            $table->string('customer_mobile');
             $table->timestamps();
         });
     }

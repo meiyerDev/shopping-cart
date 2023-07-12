@@ -50,7 +50,7 @@ onMounted(() => {
             <div class="col-span-3">
                 <ProductList :products="products" @add="addToCart" />
             </div>
-            <ShopCart :cart="cart" @more="addToCart" @less="removeFromCart" />
+            <ShopCart :cart="cart" @less="removeFromCart" />
         </div>
     </div>
 </template>

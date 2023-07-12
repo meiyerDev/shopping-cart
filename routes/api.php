@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderPlacetoPayController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('/pay', [OrderController::class, 'store']);
+Route::get('/orders/{orderId}/placeto-pay/{referenceId}/successful', [OrderPlacetoPayController::class, 'receivedSuccessful'])->name('api.order.placeto-pay.successful');
+Route::get('/orders/{orderId}/placeto-pay/{referenceId}/canceled', [OrderPlacetoPayController::class, 'receivedcanceled'])->name('api.order.placeto-pay.canceled');
