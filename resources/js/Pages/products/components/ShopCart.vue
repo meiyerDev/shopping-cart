@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue'
+import Button from './Button.vue';
 const emits = defineEmits(['more', 'less'])
 
 const props = defineProps({
@@ -28,7 +29,10 @@ const totalAmount = computed(() => {
 
                 <div class="mt-8">
                     <div class="flow-root">
-                        <ul role="list" class="-my-6 divide-y divide-gray-200">
+                        <div v-if="cart.length === 0">
+                            No hay productos en el carrito..
+                        </div>
+                        <ul v-else role="list" class="-my-6 divide-y divide-gray-200">
                             <li v-for="product in cart" :key="`cart-product-${product.sku}`" class="flex py-6">
                                 <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                     <img :src="product.image" :alt="product.name"
@@ -47,7 +51,7 @@ const totalAmount = computed(() => {
 
                                         <div class="flex">
                                             <button @click="$emit('less', product)" type="button"
-                                                class="font-medium text-orange-600 hover:text-orange-500">Quitar</button>
+                                                class="font-medium text-orange-600 hover:text-orange-500 transition active:scale-95">Quitar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -65,10 +69,10 @@ const totalAmount = computed(() => {
                 <p class="mt-0.5 text-sm text-gray-500">Compra con PlacetoPay.
                 </p>
                 <div class="mt-6">
-                    <button type="button"
-                        class="flex items-center justify-center rounded-md border w-full border-transparent bg-orange-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-orange-700">
+                    <Button :disabled="cart.length === 0" type="button"
+                        class="bg-orange-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-orange-500 active:bg-orange-600">
                         Ir a Pagar
-                    </button>
+                    </Button>
                 </div>
             </div>
         </div>

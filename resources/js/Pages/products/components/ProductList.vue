@@ -1,4 +1,6 @@
 <script setup>
+import Button from './Button.vue';
+
 defineEmits(['add'])
 
 defineProps({
@@ -27,10 +29,9 @@ defineProps({
                     </div>
                     <p class="text-sm font-medium text-gray-900">${{ product.price }}</p>
                 </div>
-                <button type="button" @click="$emit('add', product)"
-                    class="bg-orange-500 text-white mt-2 rounded-md w-full text-center py-2">
+                <Button type="button" @click="$emit('add', product)">
                     Agregar al carrito
-                </button>
+                </Button>
             </div>
         </div>
     </div>
